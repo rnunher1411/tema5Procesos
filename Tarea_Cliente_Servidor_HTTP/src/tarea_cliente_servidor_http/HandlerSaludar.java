@@ -15,14 +15,14 @@ public class HandlerSaludar implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         
-        //URI uri = new URI("http://localhost:8066/saludar?nombre=xxx&apellido=yyy");
+        URI uri = exchange.getRequestURI();
         
-        String nombre = "Juan"; 
-        String apellido = "Jimenez";
+        String nombre = uri.getQuery().substring(8, 11); 
+        String apellido = uri.getQuery().substring(21);
         
         
         final int codigoRespuesta = 200;
-        String contenido = "hola " + nombre + " " + apellido;
+        String contenido = Utilidades.getFechaHoraActualFormateada() + " hola " + nombre + " " + apellido;
         
         exchange.sendResponseHeaders(codigoRespuesta, contenido.getBytes().length);
         
