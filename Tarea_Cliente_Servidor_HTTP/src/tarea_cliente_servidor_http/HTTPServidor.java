@@ -6,12 +6,14 @@ import com.sun.net.httpserver.HttpServer;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 /**
  *
  * @author Ricardo Núñez Hernández
  */
-public class HTTPServidor {
+public abstract class HTTPServidor {
 
     /**
      * @param args the command line arguments
@@ -21,9 +23,13 @@ public class HTTPServidor {
         final int puerto = 8066;
         HttpServer httpd = HttpServer.create(new InetSocketAddress(puerto), 0);
         
-        //?nombre=xxx&apellido=yyy
         httpd.createContext("/saludar", new HandlerSaludar());
+        httpd.createContext("/calculadora",   new HttpHandlerCalculadora());
+        
+        httpd.setExecutor(Executors.newCachedThreadPool());
         
         httpd.start();
     }
+    
+    public abstract void setExecutor​(Executor executor);
 }
