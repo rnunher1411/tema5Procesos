@@ -17,12 +17,12 @@ public class HandlerSaludar implements HttpHandler {
         
         URI uri = exchange.getRequestURI();
         
-        String nombre = uri.getQuery().substring(8, 11); 
+        String nombre = uri.getQuery().substring(7, 11); 
         String apellido = uri.getQuery().substring(21);
         
         
         final int codigoRespuesta = 200;
-        String contenido = Utilidades.getFechaHoraActualFormateada() + " hola " + nombre + " " + apellido;
+        String contenido = /*Utilidades.getFechaHoraActualFormateada() + */" hola " + nombre + " " + apellido;
         
         exchange.sendResponseHeaders(codigoRespuesta, contenido.getBytes().length);
         
