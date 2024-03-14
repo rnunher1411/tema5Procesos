@@ -22,7 +22,19 @@ public class HandlerSaludar implements HttpHandler {
         
         
         final int codigoRespuesta = 200;
-        String contenido = /*Utilidades.getFechaHoraActualFormateada() + */" hola " + nombre + " " + apellido;
+        String contenido = "";
+        
+        if (!nombre.isBlank() && !apellido.isBlank()) {
+            
+            contenido = "hola " + nombre + " " + apellido;
+            System.out.println("[" + Utilidades.getFechaHoraActualFormateada() + "] Respondiendo a la peticion " + uri);
+        
+        } else {
+            
+            contenido = "hola persona no identificada";
+            System.out.println("[" + Utilidades.getFechaHoraActualFormateada() + "] Respondiendo a la peticion " + uri);
+        
+        }
         
         exchange.sendResponseHeaders(codigoRespuesta, contenido.getBytes().length);
         

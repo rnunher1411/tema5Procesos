@@ -10,7 +10,7 @@ import java.net.URI;
  *
  * @author Ricardo Núñez Hernández
  */
-public class HttpHandlerCalculadora implements HttpHandler{
+public class HttpHandlerCalculadora implements HttpHandler {
     
     @Override
     public void handle(HttpExchange exchange) throws IOException {
@@ -21,8 +21,45 @@ public class HttpHandlerCalculadora implements HttpHandler{
         String op2 = uri.getQuery().substring(10,11);
         String ope =uri.getQuery().substring(16);
         
+        double num1 = Double.parseDouble(op1);
+        double num2 = Double.parseDouble(op2);
+        
         final int codigoRespuesta = 200;
-        String contenido = /*Utilidades.getFechaHoraActualFormateada() + */op1 + " + " + op2 + " = " + ope;
+        String contenido = "";
+        
+        if (ope.equals("suma")) {
+            
+            ope = "+";
+            char oper = ope.charAt(0);
+            Calculadora calculadora = new Calculadora(num1, num2, oper);
+            contenido = calculadora.getResultado();
+            System.out.println("[" + Utilidades.getFechaHoraActualFormateada() + "] Respondiendo a la peticion " + uri );
+            
+        } else if (ope.equals("resta")) {
+            
+            ope = "-";
+            char oper = ope.charAt(0);
+            Calculadora calculadora = new Calculadora(num1, num2, oper);
+            contenido = calculadora.getResultado(); 
+            System.out.println(Utilidades.getFechaHoraActualFormateada() + "] Respondiendo a la peticion " + uri );
+            
+        } else if (ope.equals("multiplica")) {
+            
+            ope = "*";
+            char oper = ope.charAt(0);
+            Calculadora calculadora = new Calculadora(num1, num2, oper);
+            contenido = calculadora.getResultado();    
+            System.out.println(Utilidades.getFechaHoraActualFormateada() + "] Respondiendo a la peticion " + uri );
+            
+        } else if (ope.equals("divide")) {
+            
+            ope = "/";
+            char oper = ope.charAt(0);
+            Calculadora calculadora = new Calculadora(num1, num2, oper);
+            contenido = calculadora.getResultado();  
+            System.out.println(Utilidades.getFechaHoraActualFormateada() + "] Respondiendo a la peticion " + uri );
+            
+        }
         
         exchange.sendResponseHeaders(codigoRespuesta, contenido.getBytes().length);
         
